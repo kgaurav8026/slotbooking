@@ -1,0 +1,27 @@
+
+.form{
+  
+    display: inline-flex;
+    align-items: flex-end;
+    flex-direction: column;
+    left: 500px;
+    top: 200px;
+    gap: 10px;
+    position: fixed;
+}
+.image{
+  height: 50px;
+}
+.buttons{
+  position: fixed;
+  top: 300px;
+  gap: 90px;
+  left: 585px;
+  display: flex;
+  padding: 5px;
+}
+.forgotpw{
+  top: 350px;
+    position: fixed;
+    left: 590px;
+}

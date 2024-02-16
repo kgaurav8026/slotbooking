@@ -10,7 +10,7 @@ function MainNavigation() {
       <nav>
         <ul>
           <li>
-            <Link href="/components/Home">Home</Link>
+            <Link href="/Home">Home</Link>
           </li>
           <li>                                                                                                                                                                                                                
             <Link href="/components/Report">Report</Link>
@@ -19,7 +19,7 @@ function MainNavigation() {
             <Link href="/components/Upload">CSV Upload</Link>
           </li>
           <li>
-            <Link href="/components/Admin">Administration</Link>
+            <Link href="/Admin">Administration</Link>
           </li>
         </ul>
       </nav>
