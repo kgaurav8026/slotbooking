@@ -1,8 +1,8 @@
 'use client'
 import pagestyles from "./login.module.css";
-import Button from "../Elements/Button";
-import Navbar from "../Elements/Navigation";
-import Form from "../Elements/Form";
+import Button from "../components/Elements/Button";
+import Navbar from "../components/Elements/Navigation";
+import Form from "../components/Elements/Form";
 function Login() {
   return (
     <div>

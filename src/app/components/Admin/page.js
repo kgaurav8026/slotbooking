@@ -1,5 +1,5 @@
 import Layout from '../Layout/Layout';
-import Navbar from '../../Navbar'
+import Navbar from '../Sidebar/Navbar'
 
 function Admin() {
   return (
