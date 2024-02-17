@@ -1,20 +1,46 @@
-import Button from "../Elements/Button"
-import Dropdown from "../Elements/Dropdown" 
-import pagestyles from "./dashboard.module.css" 
-import Calendar from "../Elements/Calendar"
-import Navbar from "../Elements/Navigation"
-function Dashboard() {
-  const date = [<input type="date"/>]
+import classes from "./dashboard.module.css";
+import Layout from "../components/Layout/Layout";
+import Button from "../Elements/Button";
+import Dropdown from "../Elements/Dropdown";
+import Calendar from "../Elements/Calendar";
 
-  const arr= ["course1","course2"]
+function Dashboard() {
+  const date = [<input type="date" />];
+
+  // Shortened Advanced Masters Engineering Courses with 'LAB' suffix
+  const courses = [
+    "AM Lab 1",
+    "AM Lab 2",
+    "AM Lab 3",
+    "AM Lab 4",
+    "AM Lab 5",
+    "Control board",
+    "Fuzzy Control",
+    "Heat Conduction and Convection",
+    "Mechatronics system board",
+    "ACS LAB",
+  ];
+
+  // Slots
+  const slots = [
+    "08:00 - 10:00",
+    "10:00 - 12:00",
+    "12:00 - 14:00",
+    "14:00 - 16:00",
+    "16:00 - 18:00",
+  ];
+
   return (
-    <div className={pagestyles.drop}>
-      {Navbar("Home","Logout","")};
-      {Dropdown(arr,"Course",<></>)}
-      {Calendar()}
-      {Dropdown(arr,"Slot",<></>)}
-      {Button("Book Slot"," ")}
-    </div>
+    <Layout>
+      <h1 className={classes.heading}>Remote Lab Booking</h1>
+      <div className={classes.drop}>
+        {Dropdown(courses, "Course", <></>)}
+        {Calendar()}
+        {Dropdown(slots, "Slot", <></>)}
+        {Button("Book Slot", " ")}
+      </div>
+    </Layout>
   );
 }
+
 export default Dashboard;

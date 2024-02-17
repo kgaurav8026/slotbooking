@@ -19,7 +19,7 @@ function MainNavigation() {
             <Link href="/components/Upload">CSV Upload</Link>
           </li>
           <li>
-            <Link href="/Admin">Administration</Link>
+            <Link href="/components/Admin">Administration</Link>
           </li>
         </ul>
       </nav>

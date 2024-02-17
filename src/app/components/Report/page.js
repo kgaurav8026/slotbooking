@@ -1,8 +1,10 @@
+import Layout from "../Layout/Layout";
+
 function Report() {
   return (
-    <div>
+    <Layout>
       <h2>This is Report page</h2>
-    </div>
+    </Layout>
   );
 }
 export default Report;

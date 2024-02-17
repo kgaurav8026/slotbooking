@@ -1,8 +1,10 @@
+import Layout from "../Layout/Layout";
+
 function Upload() {
   return (
-    <div>
+    <Layout>
       <h2>This is Upload page</h2>
-    </div>
+    </Layout>
   );
 }
 export default Upload;
