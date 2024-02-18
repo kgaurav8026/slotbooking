@@ -7,7 +7,6 @@ import Calendar from "../Elements/Calendar";
 function Dashboard() {
   const date = [<input type="date" />];
 
- 
   const courses = [
     "AM Lab 1",
     "AM Lab 2",
@@ -34,9 +33,9 @@ function Dashboard() {
     <Layout>
       <h1 className={classes.heading}>Remote Lab Booking</h1>
       <div className={classes.drop}>
-        {Dropdown(courses, "Course", <></>)}
+        {Dropdown(courses, "Select Course")}
         {Calendar()}
-        {Dropdown(slots, "Slot", <></>)}
+        {Dropdown(slots, "Select Slot")}
         {Button("Book Slot", " ")}
       </div>
     </Layout>

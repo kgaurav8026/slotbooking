@@ -1,10 +1,10 @@
-function Dropdown(array, dropdownName, jsx) {
+function Dropdown(array, placeholder) {
   return (
     <div>
-      <select  className="form-select" aria-label="Default select example">
-        <option selected>{dropdownName} </option>
+      <select className="form-select" aria-label="Default select example">
+        <option selected disabled value="">{placeholder}</option>
         {array?.map((i) => (
-          <option key = {i} value={i}>
+          <option key={i} value={i}>
             {i}
           </option>
         ))}
