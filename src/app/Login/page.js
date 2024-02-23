@@ -18,7 +18,7 @@ function Login() {
         }}
         className={pagestyles.buttons}
       >
-        {Button("login", "/Dashboard")}
+        {Button("login", "/components/Home")}
       </div>
       <div className={pagestyles.forgotpw}>forgot password?</div>
     </div>

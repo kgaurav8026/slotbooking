@@ -1,19 +1,10 @@
+import Checkbox from "./Checkbox";
 function Table(arrRow, arrCol) {
   return (
     <table className="table">
       <thead>
         <tr>
-          <th>
-            {" "}
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-              />
-            </div>
-          </th>
+          <th> {Checkbox()}</th>
           {arrCol?.map((i) => (
             <th key={i} scope="col">
               {i}
@@ -25,16 +16,7 @@ function Table(arrRow, arrCol) {
         {arrRow?.map((i) => (
           <tr key={i}>
             <th scope="row">
-            <td>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-              </div>
-            </td>
+              <td>{Checkbox()}</td>
             </th>
             {i?.map((j) => (
               <td key={j}>{j}</td>
