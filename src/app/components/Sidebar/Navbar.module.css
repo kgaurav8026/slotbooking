@@ -5,6 +5,9 @@
     padding: 10px;
     background-color: #f8f9fa;
     border: 1px solid #333; 
+    bottom: 0px;
+    position: fixed;
+    top: 74px;
   }
   
   .navbar a {

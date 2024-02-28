@@ -1,8 +1,12 @@
+"use client";
 import classes from "./dashboard.module.css";
 import Layout from "../Layout/Layout";
 import Button from "../Elements/Button";
 import Dropdown from "../Elements/Dropdown";
-import Calendar from "../Elements/Calendar";
+import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
 function Dashboard() {
   const date = [<input type="date" />];
@@ -34,7 +38,10 @@ function Dashboard() {
       <h1 className={classes.heading}>Remote Lab Booking</h1>
       <div className={classes.drop}>
         {Dropdown(courses, "Select Course")}
-        {Calendar()}
+        
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <MobileDatePicker sx={{'& .MuiOutlinedInput-input' : {padding : "7px "}}}label="Date"  defaultValue={dayjs("0")} />
+        </LocalizationProvider>
         {Dropdown(slots, "Select Slot")}
         {Button("Book Slot", " ")}
       </div>
