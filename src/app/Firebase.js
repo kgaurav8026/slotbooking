@@ -1,4 +1,9 @@
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword ,signOut } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -16,9 +21,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app,auth
+let app, auth;
 export const initFirebase = () => {
-
   app = initializeApp(firebaseConfig);
   auth = getAuth();
 };
@@ -35,22 +39,27 @@ export const createUser = (email, password) =>
       // ..
     });
 
-export const signIn = (email, password) =>
+export const signIn = (email, password,href) =>
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
+      window.location.href = href;
       console.log(user);
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(errorMessage);
+      alert(errorMessage);
     });
-// signOut(auth)
-//   .then(() => {
-//     // Sign-out successful.
-//   })
-//   .catch((error) => {
-//     // An error happened.
-//   });
+export const signout = () =>
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log("signout")
+    })
+    .catch((error) => {
+      // An error happened.
+    });
