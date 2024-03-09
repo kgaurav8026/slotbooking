@@ -1,6 +1,8 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import classes from "./MainNavigation.module.css";
+import { signout } from "@/app/Firebase";
 
 function MainNavigation() {
   return (
@@ -22,7 +24,7 @@ function MainNavigation() {
           </li>
           <li
           >
-            <Link href="/Login">SignOut</Link>
+            <Link onClick ={signout} href="/Login">SignOut</Link>
           </li>
         </ul>
       </nav>
