@@ -15,7 +15,11 @@ function Table(arrRow, arrCol) {
       <tbody className="table-group-divider">
         {arrRow?.map((i) => (
           <tr key={i}>
+<<<<<<< HEAD
               <td>{Checkbox()}</td>
+=======
+            <td>{Checkbox()}</td>
+>>>>>>> 9f478f03ef21609a427f42108adc18f7e88b07e4
             {i?.map((j) => (
               <td key={j}>{j}</td>
             ))}
