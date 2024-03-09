@@ -4,7 +4,16 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import firebase from "firebase/compat/app";
+// Required for side-effects
+import "firebase/firestore";
+//import image from "../public/
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,10 +30,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app, auth;
+let  auth,app,db;
 export const initFirebase = () => {
   app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
   auth = getAuth();
+  
+  
 };
 export const createUser = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password)
@@ -39,7 +51,7 @@ export const createUser = (email, password) =>
       // ..
     });
 
-export const signIn = (email, password,href) =>
+export const signIn = (email, password, href) =>
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -58,8 +70,19 @@ export const signout = () =>
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      console.log("signout")
+      console.log("signout");
     })
     .catch((error) => {
       // An error happened.
     });
+
+// Initialize Cloud Firestore and get a reference to the service
+
+export async function addData (data, coll){
+  try {
+    const docRef = await addDoc(collection(db, coll), data);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+  }

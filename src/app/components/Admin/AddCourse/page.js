@@ -1,13 +1,23 @@
+"use client";
 import Admin from "../page";
-import classes from '../forms.module.css'
+import classes from "../forms.module.css";
+import { addData } from "@/app/Firebase";
+import Button from "../../Elements/Button";
 
 function AddCourse() {
+  let course = {
+    Name: "",
+    startDate: "",
+    endDate: "",
+    slotlength: "",
+    slotperWeek: "",
+  };
   return (
     <div>
       <Admin />
       <div className={classes.forms}>
         <h2>Add Course</h2>
-        <form>
+        <form id="course">
           <label>
             Name
             <input type="text" name="name" />
@@ -33,7 +43,23 @@ function AddCourse() {
             <input type="number" name="slots-per-week" />
           </label>
           <br />
-          <input type="submit" value="Submit" />
+          <div
+            onClick={async () => {
+              course.Name = document.getElementById("course").elements[0].value;
+              course.startDate =
+                document.getElementById("course").elements[1].value;
+              course.endDate =
+                document.getElementById("course").elements[2].value;
+              course.slotlength =
+                document.getElementById("course").elements[3].value;
+              course.slotperWeek =
+                document.getElementById("course").elements[4].value;
+                addData(course,"course");
+              
+            }}
+          >
+          {Button("Submit","")}
+          </div>
         </form>
       </div>
     </div>
