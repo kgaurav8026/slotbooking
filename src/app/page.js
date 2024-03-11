@@ -1,10 +1,10 @@
-import MainNavigation from "./components/MainNavigation/MainNavigation";
+import Login from './Login/page'
 
 export default function Page() {
   
   return (
     <div>
-      <MainNavigation />
+      <Login/>
     </div>
   );
 }

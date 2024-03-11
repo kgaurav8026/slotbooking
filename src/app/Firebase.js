@@ -21,12 +21,14 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD8saT3k1inAUamYgYW3GZQ3pviawTuozk",
-  authDomain: "slotbooking-ccf7f.firebaseapp.com",
-  projectId: "slotbooking-ccf7f",
-  storageBucket: "slotbooking-ccf7f.appspot.com",
-  messagingSenderId: "926310151355",
-  appId: "1:926310151355:web:320c327601708b37b3e59e",
+  apiKey: "AIzaSyC6laLzmw3F-rzmBlpfhlLbPASO6-ZnIbI",
+  authDomain: "slotbooking-5baa4.firebaseapp.com",
+  projectId: "slotbooking-5baa4",
+  storageBucket: "slotbooking-5baa4.appspot.com",
+  messagingSenderId: "670879189130",
+  appId: "1:670879189130:web:c2acf4d2264d4fbe3a4573",
+  measurementId: "G-PW7HEC5YWV"
+
 };
 
 // Initialize Firebase

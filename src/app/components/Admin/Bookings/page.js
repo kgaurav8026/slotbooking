@@ -17,7 +17,7 @@ function Bookings() {
         <br></br>
         {Search("", "Search")}
         
-        <div style={{ display: "flex", "justify-content": "space-between" }}>
+        <div style={{ display: "flex", "justifyContent": "space-between" }}>
           {Dropdown(Actions, "Action")}
           {Button("Go", "")}
         </div>

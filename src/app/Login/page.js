@@ -1,5 +1,5 @@
 "use client";
-import pagestyles from "./login.module.css";
+import classses from "./login.module.css";
 import Button from "../components/Elements/Button";
 import Navbar from "../components/Elements/Navigation";
 import Form from "../components/Elements/Form";
@@ -19,11 +19,11 @@ function Login() {
   };
   return (
     <div>
-      {Navbar("Admin Login", "", "")}
+      <Navbar/>
       <div>
-        <form id="form" className={pagestyles.form}>
-          {Form("Email", "email", "email")}
-          {Form("Password", "pw", "password")}
+        <form id="form" className={classses.form}>
+          {Form("EMAIL", "email", "email")}
+          {Form("PASSWORD", "pw", "password")}
         </form>
         <div
           onClick={() => {
@@ -37,11 +37,11 @@ function Login() {
               signIn(data.email, data.password, href);
             }
           }}
-          className={pagestyles.buttons}
+          className={classses.buttons}
         >
-          {Button("login", "")}
+          {Button("LOGIN", "")}
         </div>
-        <div className={pagestyles.forgotpw}>forgot password?</div>
+        <div className={classses.forgotpw}>forgot password?</div>
       </div>
     </div>
   );

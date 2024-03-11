@@ -1,10 +1,11 @@
 import Checkbox from "./Checkbox";
-function Table(arrRow, arrCol) {
+
+function Table({ arrRow, arrCol }) {
   return (
     <table className="table">
       <thead>
         <tr>
-          <th> {Checkbox()}</th>
+          <th>{<Checkbox />}</th>
           {arrCol?.map((i) => (
             <th key={i} scope="col">
               {i}
@@ -13,15 +14,11 @@ function Table(arrRow, arrCol) {
         </tr>
       </thead>
       <tbody className="table-group-divider">
-        {arrRow?.map((i) => (
-          <tr key={i}>
-<<<<<<< HEAD
-              <td>{Checkbox()}</td>
-=======
-            <td>{Checkbox()}</td>
->>>>>>> 9f478f03ef21609a427f42108adc18f7e88b07e4
-            {i?.map((j) => (
-              <td key={j}>{j}</td>
+        {arrRow?.map((i, rowIndex) => (
+          <tr key={rowIndex}>
+            <td>{<Checkbox />}</td>
+            {i?.map((j, colIndex) => (
+              <td key={colIndex}>{j}</td>
             ))}
           </tr>
         ))}
@@ -29,4 +26,5 @@ function Table(arrRow, arrCol) {
     </table>
   );
 }
+
 export default Table;

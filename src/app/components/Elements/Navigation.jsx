@@ -1,32 +1,30 @@
-function Navbar(Link1,Link2,Link3) {
+// MainNavigation.js
+
+import React from "react";
+import Link from "next/link";
+import classes from "../MainNavigation/MainNavigation.module.css";
+
+
+
+function MainNavigation() {
+  const navigationData = [
+    { id: 1, label: "LOGIN", link: "/Login" },
+    { id: 2, label: "REGISTER", link: "/Register" }
+  ];
   return (
-    <ul style={{ top: "0", position: "fixed", left: " 0" }} className="nav">
-      <li className="nav-item">
-        <a className="nav-link active" aria-current="page" href="#">
-          <img height={100} src="logo.png" alt="bits logo" />
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#">
-          {Link1}
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#">
-          {Link2}
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#">
-          {Link3}
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link disabled" aria-disabled="true">
-          Disabled
-        </a>
-      </li>
-    </ul>
+    <header className={classes.navbar}>
+      <img src="/logo.png" alt="Logo" className={classes.logo} />
+      <nav>
+        <ul>
+          {navigationData.map((item) => (
+            <li key={item.id}>
+              <Link href={item.link}>{item.label}</Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 }
-export default Navbar;
+
+export default MainNavigation;

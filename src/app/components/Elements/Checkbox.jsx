@@ -2,7 +2,7 @@ function Checkbox() {
   return (
     <div  className="form-check">
       <input
-        style ={{"border-color" : "lightgrey"}}
+        style ={{"borderColor" : "lightgrey"}}
         className="form-check-input"
         type="checkbox"
         value=""

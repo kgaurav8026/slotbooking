@@ -1,0 +1,11 @@
+In bookings page :
+    remove warnings
+    add content
+    try to remove too many modules
+Create registration Page : same as add course form page
+In add course page change onClick event
+
+
+// status:
+    login page and registration page front end and backend
+    Main navigation bar in login page
