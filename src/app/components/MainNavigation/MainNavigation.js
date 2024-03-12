@@ -9,7 +9,7 @@ function MainNavigation() {
     { id: 1, label: "Home", link: "/components/Home" },
     { id: 2, label: "Report", link: "/components/Report" },
     { id: 3, label: "CSV Upload", link: "/components/Upload" },
-    { id: 4, label: "Administration", link: "/components/Admin" },
+    { id: 4, label: "Admin", link: "/components/Admin" },
   ];
 
   return (

@@ -1,64 +1,82 @@
 "use client";
 import Admin from "../page";
-import classes from "../forms.module.css";
+import React, { useRef, useState } from "react";
+import classes from "./addcourse.module.css";
 import { addData } from "@/app/Firebase";
 import Button from "../../Elements/Button";
+import Form from "../../Elements/Form";
+
 
 function AddCourse() {
-  let course = {
-    Name: "",
-    startDate: "",
-    endDate: "",
-    slotlength: "",
-    slotperWeek: "",
+  const coursenameRef = useRef(null);
+  const startdateRef = useRef(null);
+  const enddateRef = useRef(null);
+  const slotlengthRef = useRef(null);
+  const slotsperweekRef = useRef(null);
+  
+
+  const [coursename, setCoursename] = useState("");
+  const [startdate, setStartdate] = useState("");
+  const [enddate, setEnddate] = useState("");
+  const [slotlength, setSlotlength] = useState("");
+  const [slotsperweek, setSlotsperweek] = useState("");
+
+
+  const handleAddCourse = async () => {
+    let course = {
+      coursename:coursename ,
+      startdate: startdate,
+      enddate: enddate,
+      slotlength: slotlength,
+      slotsperweek: slotsperweek
+    };
+  
+   addData(course,"course")
   };
+
   return (
     <div>
-      <Admin />
-      <div className={classes.forms}>
-        <h2>Add Course</h2>
-        <form id="course">
-          <label>
-            Name
-            <input type="text" name="name" />
-          </label>
-          <br />
-          <label>
-            Start Date
-            <input type="date" name="start-date" />
-          </label>
-          <br />
-          <label>
-            End Date
-            <input type="date" name="end-date" />
-          </label>
-          <br />
-          <label>
-            Slot Length
-            <input type="number" name="slot-length" />
-          </label>
-          <br />
-          <label>
-            Slots per Week:
-            <input type="number" name="slots-per-week" />
-          </label>
-          <br />
-          <div
-            onClick={async () => {
-              course.Name = document.getElementById("course").elements[0].value;
-              course.startDate =
-                document.getElementById("course").elements[1].value;
-              course.endDate =
-                document.getElementById("course").elements[2].value;
-              course.slotlength =
-                document.getElementById("course").elements[3].value;
-              course.slotperWeek =
-                document.getElementById("course").elements[4].value;
-                addData(course,"course");
-              
-            }}
-          >
-          {Button("Submit","")}
+      <Admin/>
+      <div>
+        <form id="course" className={classes.form}>
+          <h3>ADD COURSE</h3>
+          <Form
+            formName="Course "
+            type="text"
+            inputRef={coursenameRef}
+            value={coursename}
+            setValue={setCoursename}
+          />
+          <Form
+            formName="Start Date"
+            type="date"
+            inputRef={startdateRef}
+            value={startdate}
+            setValue={setStartdate}
+          />
+          <Form
+            formName="End Date"
+            type="date"
+            inputRef={enddateRef}
+            value={enddate}
+            setValue={setEnddate}
+          />
+           <Form
+            formName="Slot length"
+            type="number"
+            inputRef={slotlengthRef}
+            value={slotlength}
+            setValue={setSlotlength}
+          />
+           <Form
+            formName="Slots per Week"
+            type="number"
+            inputRef={slotsperweekRef}
+            value={slotsperweek}
+            setValue={setSlotsperweek}
+          />
+          <div onClick={handleAddCourse} className={classes.buttons}>
+            {Button("SUBMIT", "")}
           </div>
         </form>
       </div>

@@ -1,0 +1,36 @@
+/* addcourse.module.css */
+
+.form {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Adjust background color as needed */
+  }
+  
+  .form h3 {
+    text-align: left;
+  }
+  
+  .form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .form input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+  }
+  
+  .buttons {
+    text-align: left;
+  }
+  
+ 
+  
