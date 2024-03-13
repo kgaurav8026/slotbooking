@@ -1,0 +1,40 @@
+/* styles.css */
+.navbar {
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .navbar li {
+    float: left;
+  }
+  
+  .navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 1px solid transparent; 
+  }
+  
+  .navbar li a:hover {
+    background-color: #000000;
+    border-color: white; 
+  }
+  
+  
+  
+  .logo {
+    height: 50px; 
+    margin-right: auto;
+  }
+  

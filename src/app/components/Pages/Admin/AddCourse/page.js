@@ -3,8 +3,8 @@ import Admin from "../page";
 import React, { useRef, useState } from "react";
 import classes from "./addcourse.module.css";
 import { addData } from "@/app/Firebase";
-import Button from "../../Elements/Button";
-import Form from "../../Elements/Form";
+import Button from "../../../Elements/Button";
+import Form from "../../../Elements/Form";
 
 
 function AddCourse() {

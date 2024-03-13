@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import classes from "./MainNavigation.module.css";
+import classes from "./Navbar.module.css";
 import { signout } from "@/app/Firebase";
 
-function MainNavigation() {
+function Navbar() {
   const navigationData = [
-    { id: 1, label: "Home", link: "/components/Home" },
-    { id: 2, label: "Report", link: "/components/Report" },
-    { id: 3, label: "CSV Upload", link: "/components/Upload" },
-    { id: 4, label: "Admin", link: "/components/Admin" },
+    { id: 1, label: "Home", link: "/components/Pages/Home" },
+    { id: 2, label: "Report", link: "/components/Pages/Report" },
+    { id: 3, label: "CSV Upload", link: "/components/Pages/Upload" },
+    { id: 4, label: "Admin", link: "/components/Pages/Admin" },
   ];
 
   return (
@@ -33,4 +33,4 @@ function MainNavigation() {
   );
 }
 
-export default MainNavigation;
+export default Navbar;

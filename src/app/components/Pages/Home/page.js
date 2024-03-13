@@ -1,8 +1,8 @@
 "use client";
 import classes from "./dashboard.module.css";
-import Layout from "../Layout/Layout";
-import Button from "../Elements/Button";
-import Dropdown from "../Elements/Dropdown";
+import Layout from "../../Layout/Layout";
+import Button from "../../Elements/Button";
+import Dropdown from "../../Elements/Dropdown";
 import dayjs from 'dayjs';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";

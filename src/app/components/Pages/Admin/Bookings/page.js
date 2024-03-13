@@ -1,9 +1,9 @@
 import Admin from "../page";
 import classes from "../forms.module.css";
-import Search from "../../Elements/Search";
-import Dropdown from "../../Elements/Dropdown";
-import Button from "../../Elements/Button";
-import Table from "../../Elements/Table";
+import Search from "../../../Elements/Search";
+import Dropdown from "../../../Elements/Dropdown";
+import Button from "../../../Elements/Button";
+import Table from "../../../Elements/Table";
 function Bookings() {
   const Actions = [""];
   const arrRow =[["username","coursename","machinename"]]

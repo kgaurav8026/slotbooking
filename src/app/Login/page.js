@@ -3,14 +3,14 @@
 import React, { useRef, useState } from "react";
 import classes from "./login.module.css";
 import Button from "../components/Elements/Button";
-import Navbar from "../components/Elements/Navigation";
+import Navbar from "../components/Elements/Navigation/AuthNavigation/page";
 import Form from "../components/Elements/Form";
 import { signIn } from "../Firebase";
 
 function Login() {
-  const href = "/components/Home";
+  const href = "/components/Pages/Home";
   const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const passwordRef = useRef(null); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

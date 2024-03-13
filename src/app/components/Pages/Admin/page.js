@@ -1,5 +1,5 @@
-import Layout from '../Layout/Layout';
-import Navbar from '../Sidebar/Navbar'
+import Layout from '../../Layout/Layout';
+import Navbar from '../../Elements/Navigation/AdminNavigation/page'
 
 function Admin() {
   return (

@@ -25,11 +25,13 @@ export const initFirebase = () => {
   db = getFirestore(app);
   auth = getAuth();
 };
-export const createUser = (email, password) =>
+export const createUser = (email, password, href) =>
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user;
+      window.location.href = href;
+
       // ...
     })
     .catch((error) => {

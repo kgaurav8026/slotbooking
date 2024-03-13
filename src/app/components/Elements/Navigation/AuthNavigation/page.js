@@ -2,11 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import classes from "../MainNavigation/MainNavigation.module.css";
+import classes from "./Navbar.module.css";
 
 
 
-function MainNavigation() {
+function Navbar() {
   const navigationData = [
     { id: 1, label: "LOGIN", link: "/Login" },
     { id: 2, label: "REGISTER", link: "/Register" }
@@ -27,4 +27,4 @@ function MainNavigation() {
   );
 }
 
-export default MainNavigation;
+export default Navbar;

@@ -1,12 +1,13 @@
 "use client";
 import React, { useRef, useState } from "react";
-import Navbar from "../components/Elements/Navigation";
+import Navbar from "../components/Elements/Navigation/AuthNavigation/page";
 import classes from "./register.module.css";
 import Button from "../components/Elements/Button";
 import Form from "../components/Elements/Form";
 import { createUser } from "../Firebase";
 
 function Register() {
+  const href = "/Login";
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const userRef = useRef(null);
@@ -16,7 +17,7 @@ function Register() {
 
   const handleRegister = async () => {
     // Call your createUser function here
-    createUser(email, password);
+    createUser(email, password, href);
   };
 
   return (

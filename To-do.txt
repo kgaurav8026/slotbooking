@@ -1,7 +1,4 @@
-// rename Navigations to AuthNavigation, AdminNavigation and AppNavigation
-// structure the folders
-// Use useRef instead of manual fetching data from Forms 
-// use Forms in Register page and add course
-// After Registering i should move to home page
+// 13 March : commit as Reorganize folder hierarchy
+// retrive data from course and show it on home page
 // After completion of project create a video of project demo and add voice of nawazuddin
 
