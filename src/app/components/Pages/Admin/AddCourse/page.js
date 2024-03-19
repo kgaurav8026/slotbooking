@@ -1,8 +1,8 @@
+
 "use client";
 import Admin from "../page";
 import React, { useRef, useState } from "react";
 import classes from "./addcourse.module.css";
-import { addData } from "@/app/Firebase";
 import Button from "../../../Elements/Button";
 import Form from "../../../Elements/Form";
 
@@ -22,7 +22,7 @@ function AddCourse() {
   const [slotsperweek, setSlotsperweek] = useState("");
 
 
-  const handleAddCourse = async () => {
+  const addCourseHandler = async () => {
     let course = {
       coursename:coursename ,
       startdate: startdate,
@@ -30,8 +30,17 @@ function AddCourse() {
       slotlength: slotlength,
       slotsperweek: slotsperweek
     };
-  
-   addData(course,"course")
+
+    fetch(
+      'https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json',
+      {
+        method : 'POST',
+        body : JSON.stringify(course),
+        header : {
+          'Content-Type' : 'application/json'
+        }
+      }
+    );
   };
 
   return (
@@ -75,7 +84,7 @@ function AddCourse() {
             value={slotsperweek}
             setValue={setSlotsperweek}
           />
-          <div onClick={handleAddCourse} className={classes.buttons}>
+          <div onClick={addCourseHandler} className={classes.buttons}>
             {Button("SUBMIT", "")}
           </div>
         </form>

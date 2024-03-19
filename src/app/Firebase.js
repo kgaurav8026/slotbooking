@@ -66,7 +66,7 @@ export const signout = () =>
     });
 
 // Initialize Cloud Firestore and get a reference to the service
-
+// fun to store data in firestore database
 export async function addData(data, coll) {
   try {
     const docRef = await addDoc(collection(db, coll), data);
