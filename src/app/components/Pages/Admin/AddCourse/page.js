@@ -5,9 +5,8 @@ import classes from "./addcourse.module.css";
 import Button from "../../../Elements/Button";
 import Form from "../../../Elements/Form";
 
-function AddCourse() {
 
-  
+function AddCourse() {
   
   const coursenameRef = useRef(null);
   const startdateRef = useRef(null);
@@ -15,7 +14,6 @@ function AddCourse() {
   const slotlengthRef = useRef(null);
   const slotsperweekRef = useRef(null);
  
-
   const [coursename, setCoursename] = useState("");
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
@@ -47,7 +45,10 @@ function AddCourse() {
           "Content-Type": "application/json",
         },
       }
-    )
+    ).then(() => {
+      window.alert("Form Submitted Successfully");
+      window.location.href = '/components/Pages/Home';
+    })
   };
 
   return (
