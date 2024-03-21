@@ -1,4 +1,3 @@
-
 "use client";
 import Admin from "../page";
 import React, { useRef, useState } from "react";
@@ -6,14 +5,16 @@ import classes from "./addcourse.module.css";
 import Button from "../../../Elements/Button";
 import Form from "../../../Elements/Form";
 
-
 function AddCourse() {
+
+  
+  
   const coursenameRef = useRef(null);
   const startdateRef = useRef(null);
   const enddateRef = useRef(null);
   const slotlengthRef = useRef(null);
   const slotsperweekRef = useRef(null);
-  
+ 
 
   const [coursename, setCoursename] = useState("");
   const [startdate, setStartdate] = useState("");
@@ -21,31 +22,37 @@ function AddCourse() {
   const [slotlength, setSlotlength] = useState("");
   const [slotsperweek, setSlotsperweek] = useState("");
 
-
   const addCourseHandler = async () => {
+
+  // Check if slotlength and slotsperweek are not negative
+  if (slotlength < 0 || slotsperweek < 0) {
+    window.alert("Slot length and Slots per week cannot be negative.");
+    return;
+  }
+   
     let course = {
-      coursename:coursename ,
+      coursename: coursename,
       startdate: startdate,
       enddate: enddate,
       slotlength: slotlength,
-      slotsperweek: slotsperweek
+      slotsperweek: slotsperweek,
     };
 
     fetch(
-      'https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json',
+      "https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json",
       {
-        method : 'POST',
-        body : JSON.stringify(course),
-        header : {
-          'Content-Type' : 'application/json'
-        }
+        method: "POST",
+        body: JSON.stringify(course),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    );
+    )
   };
 
   return (
     <div>
-      <Admin/>
+      <Admin />
       <div>
         <form id="course" className={classes.form}>
           <h3>ADD COURSE</h3>
@@ -70,14 +77,14 @@ function AddCourse() {
             value={enddate}
             setValue={setEnddate}
           />
-           <Form
+          <Form
             formName="Slot length"
             type="number"
             inputRef={slotlengthRef}
             value={slotlength}
             setValue={setSlotlength}
           />
-           <Form
+          <Form
             formName="Slots per Week"
             type="number"
             inputRef={slotsperweekRef}
