@@ -1,7 +1,16 @@
-Slot Booking System : Allows students to remotely access the lab computers after booking a slot
+## Slot Booking System 
 
-Steps to install 
- 1. npm install
- 2. npm run dev
+### Steps to Install and Run
+1. Fork and Clone the repository
+2. Install the necessary packages:
+    ```
+    npm install
+    ```
+3. Run the development server:
+    ```
+    npm run dev
+    ```
 
-Link to demo Video : https://drive.google.com/file/d/16iRDuJfk85R3icaydQSm-lcTS-p-bNM_/view?usp=sharing
+## Demo 
+
+[slotbookingdemo.webm](https://github.com/kgaurav8026/slotbooking/assets/78530088/97bace89-8e53-4119-bda8-e8905622f9be)
