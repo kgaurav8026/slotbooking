@@ -1,37 +1,50 @@
 "use client";
 import Admin from "../page";
-import React, { useRef, useState } from "react";
 import classes from "./addcourse.module.css";
-import Button from "../../../Elements/Button";
-import Form from "../../../Elements/Form";
+import React, { useRef, useState } from "react";
 
-
-function AddCourse() {
-  
+const AddCourse = () => {
   const coursenameRef = useRef(null);
   const startdateRef = useRef(null);
   const enddateRef = useRef(null);
   const slotlengthRef = useRef(null);
   const slotsperweekRef = useRef(null);
- 
-  const [coursename, setCoursename] = useState("");
-  const [startdate, setStartdate] = useState("");
-  const [enddate, setEnddate] = useState("");
-  const [slotlength, setSlotlength] = useState("");
-  const [slotsperweek, setSlotsperweek] = useState("");
 
-  const addCourseHandler = async () => {
+  const [slotlengthError, setSlotlengthError] = useState("");
+  const [slotsperweekError, setSlotsperweekError] = useState("");
 
-  // Check if slotlength and slotsperweek are not negative
-  if (slotlength < 0 || slotsperweek < 0) {
-    window.alert("Slot length and Slots per week cannot be negative.");
-    return;
-  }
-   
-    let course = {
-      coursename: coursename,
-      startdate: startdate,
-      enddate: enddate,
+  const handleSlotlengthChange = (e) => {
+    const value = e.target.value;
+    if (value < 0) {
+      setSlotlengthError("Slot length cannot be negative");
+    } else {
+      setSlotlengthError("");
+    }
+  };
+
+  const handleSlotsperweekChange = (e) => {
+    const value = e.target.value;
+    if (value < 0) {
+      setSlotsperweekError("Slots per week cannot be negative");
+    } else {
+      setSlotsperweekError("");
+    }
+  };
+
+  const addCourseHandler = async (e) => {
+    e.preventDefault();
+
+    const slotlength = slotlengthRef.current.value;
+    const slotsperweek = slotsperweekRef.current.value;
+
+    if (slotlength < 0 || slotsperweek < 0) {
+      return;
+    }
+
+    const course = {
+      coursename: coursenameRef.current.value,
+      startdate: startdateRef.current.value,
+      enddate: enddateRef.current.value,
       slotlength: slotlength,
       slotsperweek: slotsperweek,
     };
@@ -45,60 +58,65 @@ function AddCourse() {
           "Content-Type": "application/json",
         },
       }
-    ).then(() => {
-      window.alert("Form Submitted Successfully");
-      window.location.href = '/components/Pages/Home';
-    })
+    )
+      .then(() => {
+        window.alert("Form Submitted Successfully");
+        window.location.href = "/components/Pages/Home";
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+      });
   };
 
   return (
     <div>
       <Admin />
       <div>
-        <form id="course" className={classes.form}>
+        <form id="course" className={classes.form} onSubmit={addCourseHandler}>
           <h3>ADD COURSE</h3>
-          <Form
-            formName="Course "
-            type="text"
-            inputRef={coursenameRef}
-            value={coursename}
-            setValue={setCoursename}
-          />
-          <Form
-            formName="Start Date"
-            type="date"
-            inputRef={startdateRef}
-            value={startdate}
-            setValue={setStartdate}
-          />
-          <Form
-            formName="End Date"
-            type="date"
-            inputRef={enddateRef}
-            value={enddate}
-            setValue={setEnddate}
-          />
-          <Form
-            formName="Slot length"
-            type="number"
-            inputRef={slotlengthRef}
-            value={slotlength}
-            setValue={setSlotlength}
-          />
-          <Form
-            formName="Slots per Week"
-            type="number"
-            inputRef={slotsperweekRef}
-            value={slotsperweek}
-            setValue={setSlotsperweek}
-          />
-          <div onClick={addCourseHandler} className={classes.buttons}>
-            {Button("SUBMIT", "")}
+          <div>
+            <label htmlFor="coursename">Course Name:</label>
+            <input type="text" id="coursename" ref={coursenameRef} required />
           </div>
+          <div>
+            <label htmlFor="startdate">Start Date:</label>
+            <input type="date" id="startdate" ref={startdateRef} required />
+          </div>
+          <div>
+            <label htmlFor="enddate">End Date:</label>
+            <input type="date" id="enddate" ref={enddateRef} required />
+          </div>
+          <div>
+            <label htmlFor="slotlength">Slot Length:</label>
+            <input
+              type="number"
+              id="slotlength"
+              ref={slotlengthRef}
+              onChange={handleSlotlengthChange}
+              required
+            />
+            {slotlengthError && (
+              <span style={{ color: "red" }}>{slotlengthError}</span>
+            )}
+          </div>
+          <div>
+            <label htmlFor="slotsperweek">Slots per Week:</label>
+            <input
+              type="number"
+              id="slotsperweek"
+              ref={slotsperweekRef}
+              onChange={handleSlotsperweekChange}
+              required
+            />
+            {slotsperweekError && (
+              <span style={{ color: "red" }}>{slotsperweekError}</span>
+            )}
+          </div>
+          <button className="btn btn-primary">SUBMIT</button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default AddCourse;
