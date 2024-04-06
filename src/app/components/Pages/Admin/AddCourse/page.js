@@ -15,8 +15,8 @@ const AddCourse = () => {
 
   const handleSlotlengthChange = (e) => {
     const value = e.target.value;
-    if (value < 0) {
-      setSlotlengthError("Slot length cannot be negative");
+    if (value <= 0) {
+      setSlotlengthError("Slot length cannot be zero or negative");
     } else {
       setSlotlengthError("");
     }
@@ -24,8 +24,8 @@ const AddCourse = () => {
 
   const handleSlotsperweekChange = (e) => {
     const value = e.target.value;
-    if (value < 0) {
-      setSlotsperweekError("Slots per week cannot be negative");
+    if (value <= 0) {
+      setSlotsperweekError("Slots per week cannot be zero or negative");
     } else {
       setSlotsperweekError("");
     }

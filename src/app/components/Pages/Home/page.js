@@ -3,60 +3,109 @@ import classes from "./dashboard.module.css";
 import Layout from "../../Layout/Layout";
 import Button from "../../Elements/Button";
 import Dropdown from "../../Elements/Dropdown";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
+const generateSlots = (slotlength) => {
+  const slots = [];
+  let startTime = new Date().setHours(10, 0, 0, 0); // Start time is 10:00 AM
+  const endTime = new Date().setHours(18, 0, 0, 0); // End time is 6:00 PM
+  const slotLengthInMilliseconds = slotlength * 60 * 60 * 1000; // Convert slot length from hours to milliseconds
+
+  while (startTime + slotLengthInMilliseconds <= endTime) {
+    const startTimeFormatted = new Date(startTime).toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+    const endTimeFormatted = new Date(
+      startTime + slotLengthInMilliseconds
+    ).toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+
+    slots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
+    startTime += slotLengthInMilliseconds;
+  }
+
+  return slots;
+};
 function Dashboard() {
-  const [courses, setCourses] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState("No Courses");
+  const [courseNames, setCourseNames] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState();
+  const [slots, setSlots] = useState([]);
+  const [dateError, setDateError] = useState();
+  const slotlength = useRef(null);
+  const slotsperweek = useRef(null);
+  const startdate = useRef(null);
+  const enddate = useRef(null);
+
+  const onSelectCourse = (event) => {
+    setSelectedCourse(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const onSelectDate = (event) => {
+    const start = Date.parse(startdate.current);
+    const end = Date.parse(enddate.current);
+    const date = Date.parse(event.target.value);
+
+    if (!(date >= start && date <= end)) {
+      setDateError("Invalid Date");
+    } else {
+      setDateError("");
+    }
+  };
 
   useEffect(() => {
-    fetch("https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const fetchedCourses = [];
-        for (const key in data) {
-          fetchedCourses.push(data[key].coursename);
-        }
-        setCourses(fetchedCourses);
+    const fetchCourseData = () => {
+      fetch(
+        "https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const courseNames = [];
+          for (const key in data) {
+            courseNames.push(data[key].coursename);
+            // Check if the current key matches the SelectedCourse
+            if (data[key].coursename === selectedCourse) {
+              slotlength.current = data[key].slotlength;
+              slotsperweek.current = data[key].slotsperweek;
+              startdate.current = data[key].startdate;
+              enddate.current = data[key].enddate;
+              const slots = generateSlots(slotlength.current);
 
-        if (fetchedCourses.length > 0) {
-          setSelectedCourse(fetchedCourses[0]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
-  }, []);
+              setSlots(slots);
+              return;
+            }
+          }
+          setCourseNames(courseNames);
+        })
+        .catch((error) => {
+          console.error("Error fetching course data:", error);
+        });
+    };
 
-  const date = [<input type="date" />];
-
-  // Slots
-  const slots = [
-    "08:00 - 10:00",
-    "10:00 - 12:00",
-    "12:00 - 14:00",
-    "14:00 - 16:00",
-    "16:00 - 18:00",
-  ];
+    fetchCourseData();
+  }, [selectedCourse]);
 
   return (
     <Layout>
       <h1 className={classes.heading}>Remote Lab Booking</h1>
       <div className={classes.drop}>
-        {Dropdown(courses, selectedCourse)}
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <MobileDatePicker
-            sx={{ "& .MuiOutlinedInput-input": { padding: "7px " } }}
-            label="Date"
-            defaultValue={dayjs("0")}
+        {Dropdown(courseNames, "Select Course", onSelectCourse)}
+        <div>
+          <input
+            type="date"
+            className="form-control"
+            defaultValue=""
+            onChange={onSelectDate}
           />
-        </LocalizationProvider>
-        {Dropdown(slots, "Select Slot")}
+          {dateError && <span style={{ color: "red" }}>{dateError}</span>}
+        </div>
+
+        {Dropdown(slots, "Select Slot", onSelectDate)}
         {Button("Book Slot", " ")}
       </div>
     </Layout>
