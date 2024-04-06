@@ -1,18 +1,14 @@
 .drop {
-  width: 900px;
   display: flex;
   justify-content: space-between;
-  top: 200px;
-  position: fixed;
-  left: 200px;
 }
 .heading {
-    display: flex;
-    justify-content: center;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  
-.Date{
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.Date {
   padding: 7px;
 }

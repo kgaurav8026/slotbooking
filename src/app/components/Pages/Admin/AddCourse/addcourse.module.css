@@ -4,12 +4,14 @@
   width: 50%;
   margin: auto;
   padding: 20px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white; /* Adjust background color as needed */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 700px;
 }
 
 .form h3 {
@@ -26,6 +28,8 @@
   padding: 8px;
   box-sizing: border-box;
   margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .button {

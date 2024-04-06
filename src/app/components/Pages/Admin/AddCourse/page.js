@@ -69,9 +69,9 @@ const AddCourse = () => {
   };
 
   return (
-    <div>
+    <>
       <Admin />
-      <div>
+      <div className="container">
         <form id="course" className={classes.form} onSubmit={addCourseHandler}>
           <h3>ADD COURSE</h3>
           <div>
@@ -115,7 +115,7 @@ const AddCourse = () => {
           <button className="btn btn-primary">SUBMIT</button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

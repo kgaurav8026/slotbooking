@@ -6,8 +6,8 @@ import Button from "../../../Elements/Button";
 import Table from "../../../Elements/Table";
 function Bookings() {
   const Actions = [""];
-  const arrRow =[["username","coursename","machinename"]]
-  const arrCol = ["USER","Course","Machine"]
+  const arrRow = [["username", "coursename", "machinename"]];
+  const arrCol = ["USER", "Course", "Machine"];
   return (
     <div>
       <Admin />
@@ -16,13 +16,13 @@ function Bookings() {
         {/* <input type="text" placeholder="Search" /> */}
         <br></br>
         {Search("", "Search")}
-        
-        <div style={{ display: "flex", "justifyContent": "space-between" }}>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           {Dropdown(Actions, "Action")}
           {Button("Go", "")}
         </div>
         <br></br>
-        {Table(arrRow,arrCol)}
+        <Table data={[]} />
         {/* <table>Table headers and rows go here</table> */}
       </div>
     </div>

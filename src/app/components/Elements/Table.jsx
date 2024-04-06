@@ -1,30 +1,30 @@
-import Checkbox from "./Checkbox";
+import React from "react";
 
-function Table({ arrRow, arrCol }) {
+const Table = ({ data }) => {
   return (
-    <table className="table">
+    <table className="table table-bordered">
       <thead>
         <tr>
-          <th>{<Checkbox />}</th>
-          {arrCol?.map((i) => (
-            <th key={i} scope="col">
-              {i}
-            </th>
-          ))}
+          <th>Course Name</th>
+          <th>Date</th>
+          <th>Slot</th>
+          <th>Actions</th> {/* Add a new column for checkboxes */}
         </tr>
       </thead>
-      <tbody className="table-group-divider">
-        {arrRow?.map((i, rowIndex) => (
-          <tr key={rowIndex}>
-            <td>{<Checkbox />}</td>
-            {i?.map((j, colIndex) => (
-              <td key={colIndex}>{j}</td>
-            ))}
+      <tbody>
+        {data.map((item, index) => (
+          <tr key={index}>
+            <td>{item.name}</td>
+            <td>{item.date}</td>
+            <td>{item.slot}</td>
+            <td>
+              <input type="checkbox" /> {/* Add a checkbox */}
+            </td>
           </tr>
         ))}
       </tbody>
     </table>
   );
-}
+};
 
 export default Table;

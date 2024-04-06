@@ -1,9 +1,9 @@
 "use client";
 import classes from "./dashboard.module.css";
 import Layout from "../../Layout/Layout";
-import Button from "../../Elements/Button";
 import Dropdown from "../../Elements/Dropdown";
 import { useState, useEffect, useRef } from "react";
+import Table from "../../Elements/Table";
 
 const generateSlots = (slotlength) => {
   const slots = [];
@@ -34,12 +34,15 @@ const generateSlots = (slotlength) => {
 function Dashboard() {
   const [courseNames, setCourseNames] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState();
+  const [selectedDate, setSelectedDate] = useState();
+  const [selectedSlot, setSelectedSlot] = useState();
   const [slots, setSlots] = useState([]);
   const [dateError, setDateError] = useState();
   const slotlength = useRef(null);
   const slotsperweek = useRef(null);
   const startdate = useRef(null);
   const enddate = useRef(null);
+  const [bookedSlots, setBookedSlots] = useState([]);
 
   const onSelectCourse = (event) => {
     setSelectedCourse(event.target.value);
@@ -47,6 +50,7 @@ function Dashboard() {
   };
 
   const onSelectDate = (event) => {
+    setSelectedDate(event.target.value);
     const start = Date.parse(startdate.current);
     const end = Date.parse(enddate.current);
     const date = Date.parse(event.target.value);
@@ -57,7 +61,17 @@ function Dashboard() {
       setDateError("");
     }
   };
-
+  const onSelectSlot = (event) => {
+    setSelectedSlot(event.target.value);
+  };
+  const handleBookSlot = () => {
+    const newSlot = {
+      name: selectedCourse,
+      date: selectedDate,
+      slot: selectedSlot,
+    };
+    setBookedSlots((prevBookedSlots) => [...prevBookedSlots, newSlot]);
+  };
   useEffect(() => {
     const fetchCourseData = () => {
       fetch(
@@ -93,20 +107,29 @@ function Dashboard() {
   return (
     <Layout>
       <h1 className={classes.heading}>Remote Lab Booking</h1>
-      <div className={classes.drop}>
-        {Dropdown(courseNames, "Select Course", onSelectCourse)}
-        <div>
-          <input
-            type="date"
-            className="form-control"
-            defaultValue=""
-            onChange={onSelectDate}
-          />
-          {dateError && <span style={{ color: "red" }}>{dateError}</span>}
-        </div>
+      <div className="container">
+        <div className={classes.drop}>
+          {Dropdown(courseNames, "Select Course", onSelectCourse)}
+          <div>
+            <input
+              type="date"
+              className="form-control"
+              defaultValue=""
+              onChange={onSelectDate}
+            />
+            {dateError && <span style={{ color: "red" }}>{dateError}</span>}
+          </div>
 
-        {Dropdown(slots, "Select Slot", onSelectDate)}
-        {Button("Book Slot", " ")}
+          {Dropdown(slots, "Select Slot", onSelectSlot)}
+          <button className="btn btn-primary" onClick={handleBookSlot}>
+            Book Slot
+          </button>
+        </div>
+        <br />
+        <br />
+        <div>
+          <Table data={bookedSlots}></Table>
+        </div>
       </div>
     </Layout>
   );
