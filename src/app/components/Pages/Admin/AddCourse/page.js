@@ -2,6 +2,7 @@
 import Admin from "../page";
 import classes from "./addcourse.module.css";
 import React, { useRef, useState } from "react";
+import { addData } from "../../../../Firebase"; // Import the addData function
 
 const AddCourse = () => {
   const coursenameRef = useRef(null);
@@ -9,7 +10,6 @@ const AddCourse = () => {
   const enddateRef = useRef(null);
   const slotlengthRef = useRef(null);
   const slotsperweekRef = useRef(null);
-
   const [slotlengthError, setSlotlengthError] = useState("");
   const [slotsperweekError, setSlotsperweekError] = useState("");
 
@@ -33,10 +33,8 @@ const AddCourse = () => {
 
   const addCourseHandler = async (e) => {
     e.preventDefault();
-
     const slotlength = slotlengthRef.current.value;
     const slotsperweek = slotsperweekRef.current.value;
-
     if (slotlength < 0 || slotsperweek < 0) {
       return;
     }
@@ -49,23 +47,13 @@ const AddCourse = () => {
       slotsperweek: slotsperweek,
     };
 
-    fetch(
-      "https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json",
-      {
-        method: "POST",
-        body: JSON.stringify(course),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then(() => {
-        window.alert("Form Submitted Successfully");
-        window.location.href = "/components/Pages/Home";
-      })
-      .catch((error) => {
-        console.error("Error submitting form:", error);
-      });
+    try {
+      await addData(course, "courses"); // Call the addData function with the course data and "courses" collection name
+      window.alert("Form Submitted Successfully");
+      window.location.href = "/components/Pages/Home";
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (

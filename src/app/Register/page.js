@@ -11,13 +11,15 @@ function Register() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const userRef = useRef(null);
+  const adminCodeRef = useRef(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [adminCode, setadminCode] = useState("");
 
   const handleRegister = async () => {
     // Call your createUser function here
-    createUser(email, password, href);
+    createUser(email, password, adminCode, href);
   };
 
   return (
@@ -46,6 +48,13 @@ function Register() {
             inputRef={passwordRef}
             value={password}
             setValue={setPassword}
+          />
+          <Form
+            formName="Admin Code "
+            type="password"
+            inputRef={adminCodeRef}
+            value={adminCode}
+            setValue={setadminCode}
           />
           <div onClick={handleRegister} className={classes.buttons}>
             {Button("REGISTER", "")}

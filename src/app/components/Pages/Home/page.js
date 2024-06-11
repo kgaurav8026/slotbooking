@@ -1,24 +1,34 @@
 "use client";
+import { useEffect, useState } from "react";
 import classes from "./dashboard.module.css";
 import Layout from "../../Layout/Layout";
 import Dropdown from "../../Elements/Dropdown";
-import { useState, useEffect, useRef } from "react";
 import Table from "../../Elements/Table";
+import { initFirebase } from "../../../Firebase";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-const generateSlots = (slotlength) => {
+const generateSlots = (startDate, endDate, slotDuration) => {
   const slots = [];
-  let startTime = new Date().setHours(10, 0, 0, 0); // Start time is 10:00 AM
-  const endTime = new Date().setHours(18, 0, 0, 0); // End time is 6:00 PM
-  const slotLengthInMilliseconds = slotlength * 60 * 60 * 1000; // Convert slot length from hours to milliseconds
+  const startTime = new Date(startDate);
+  const endTime = new Date(endDate);
+  const slotLengthInMilliseconds = slotDuration * 60 * 60 * 1000;
 
-  while (startTime + slotLengthInMilliseconds <= endTime) {
-    const startTimeFormatted = new Date(startTime).toLocaleString("en-US", {
+  startTime.setHours(10, 0, 0, 0); // Start time is 10:00 AM
+  endTime.setHours(18, 0, 0, 0); // End time is 6:00 PM
+
+  let currentTime = new Date(startTime);
+
+  while (
+    currentTime.getTime() + slotLengthInMilliseconds <=
+    endTime.getTime()
+  ) {
+    const startTimeFormatted = currentTime.toLocaleString("en-US", {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
     });
     const endTimeFormatted = new Date(
-      startTime + slotLengthInMilliseconds
+      currentTime.getTime() + slotLengthInMilliseconds
     ).toLocaleString("en-US", {
       hour: "numeric",
       minute: "numeric",
@@ -26,102 +36,138 @@ const generateSlots = (slotlength) => {
     });
 
     slots.push(`${startTimeFormatted} - ${endTimeFormatted}`);
-    startTime += slotLengthInMilliseconds;
+    currentTime = new Date(currentTime.getTime() + slotLengthInMilliseconds);
   }
 
   return slots;
 };
+
 function Dashboard() {
   const [courseNames, setCourseNames] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState();
-  const [selectedDate, setSelectedDate] = useState();
-  const [selectedSlot, setSelectedSlot] = useState();
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedSlot, setSelectedSlot] = useState("");
   const [slots, setSlots] = useState([]);
-  const [dateError, setDateError] = useState();
-  const slotlength = useRef(null);
-  const slotsperweek = useRef(null);
-  const startdate = useRef(null);
-  const enddate = useRef(null);
+  const [dateError, setDateError] = useState("");
   const [bookedSlots, setBookedSlots] = useState([]);
 
   const onSelectCourse = (event) => {
     setSelectedCourse(event.target.value);
-    console.log(event.target.value);
   };
 
   const onSelectDate = (event) => {
-    setSelectedDate(event.target.value);
-    const start = Date.parse(startdate.current);
-    const end = Date.parse(enddate.current);
-    const date = Date.parse(event.target.value);
+    const selectedDate = new Date(event.target.value);
+    setSelectedDate(selectedDate);
 
-    if (!(date >= start && date <= end)) {
-      setDateError("Invalid Date");
-    } else {
-      setDateError("");
+    const courseData = courseNames.find(
+      (course) => course.coursename === selectedCourse
+    );
+
+    if (courseData) {
+      const { startdate, enddate, slotlength } = courseData;
+      const start = new Date(startdate);
+      const end = new Date(enddate);
+      const slotDuration = Number(slotlength);
+
+      if (selectedDate >= start && selectedDate <= end) {
+        setDateError("");
+        const slots = generateSlots(
+          selectedDate.toISOString(),
+          selectedDate.toISOString(),
+          slotDuration
+        );
+        const availableSlots = slots.filter(
+          (slot) =>
+            !bookedSlots.some(
+              (bookedSlot) =>
+                bookedSlot.name === selectedCourse &&
+                bookedSlot.date === selectedDate.toDateString() &&
+                bookedSlot.slot === slot
+            )
+        );
+        setSlots(availableSlots);
+      } else {
+        setDateError("Invalid Date");
+        setSlots([]);
+      }
     }
   };
+
   const onSelectSlot = (event) => {
     setSelectedSlot(event.target.value);
   };
+
   const handleBookSlot = () => {
     const newSlot = {
       name: selectedCourse,
-      date: selectedDate,
+      date: selectedDate.toDateString(),
       slot: selectedSlot,
     };
-    setBookedSlots((prevBookedSlots) => [...prevBookedSlots, newSlot]);
-  };
-  useEffect(() => {
-    const fetchCourseData = () => {
-      fetch(
-        "https://slotbooking-5baa4-default-rtdb.firebaseio.com/courses.json"
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const courseNames = [];
-          for (const key in data) {
-            courseNames.push(data[key].coursename);
-            // Check if the current key matches the SelectedCourse
-            if (data[key].coursename === selectedCourse) {
-              slotlength.current = data[key].slotlength;
-              slotsperweek.current = data[key].slotsperweek;
-              startdate.current = data[key].startdate;
-              enddate.current = data[key].enddate;
-              const slots = generateSlots(slotlength.current);
 
-              setSlots(slots);
-              return;
-            }
-          }
-          setCourseNames(courseNames);
-        })
-        .catch((error) => {
-          console.error("Error fetching course data:", error);
+    // Check if the slot is already booked
+    const isSlotBooked = bookedSlots.some(
+      (bookedSlot) =>
+        bookedSlot.name === selectedCourse &&
+        bookedSlot.date === selectedDate.toDateString() &&
+        bookedSlot.slot === selectedSlot
+    );
+
+    if (!isSlotBooked) {
+      setBookedSlots((prevBookedSlots) => [...prevBookedSlots, newSlot]);
+    } else {
+      alert("This slot is already booked. Please choose another slot.");
+    }
+  };
+
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      initFirebase();
+      const db = getFirestore();
+
+      try {
+        const coursesCollection = collection(db, "courses");
+        const querySnapshot = await getDocs(coursesCollection);
+
+        const courseNames = [];
+        querySnapshot.forEach((doc) => {
+          const docData = doc.data();
+          courseNames.push(docData);
         });
+
+        setCourseNames(courseNames);
+      } catch (error) {
+        console.error("Error fetching course data:", error);
+      }
     };
 
     fetchCourseData();
-  }, [selectedCourse]);
+  }, []);
 
   return (
     <Layout>
       <h1 className={classes.heading}>Remote Lab Booking</h1>
       <div className="container">
         <div className={classes.drop}>
-          {Dropdown(courseNames, "Select Course", onSelectCourse)}
+          {Dropdown(
+            courseNames.map((course) => course.coursename),
+            "Select Course",
+            onSelectCourse
+          )}
           <div>
             <input
               type="date"
               className="form-control"
-              defaultValue=""
               onChange={onSelectDate}
             />
             {dateError && <span style={{ color: "red" }}>{dateError}</span>}
           </div>
 
           {Dropdown(slots, "Select Slot", onSelectSlot)}
-          <button className="btn btn-primary" onClick={handleBookSlot}>
+          <button
+            className="btn btn-primary"
+            onClick={handleBookSlot}
+            disabled={!selectedSlot}
+          >
             Book Slot
           </button>
         </div>

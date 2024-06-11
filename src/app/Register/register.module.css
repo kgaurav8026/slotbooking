@@ -1,5 +1,4 @@
-
-.form{
+.form {
   display: inline-flex;
   align-items: flex-end;
   flex-direction: column;
@@ -9,11 +8,11 @@
   position: fixed;
 }
 
-.buttons{
-position: fixed;
-top: 400px;
-gap: 90px;
-left: 585px;
-display: flex;
-padding: 5px;
+.buttons {
+  position: fixed;
+  top: 450px;
+  gap: 90px;
+  left: 605px;
+  display: flex;
+  padding: 5px;
 }
