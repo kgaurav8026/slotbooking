@@ -5,7 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-
+import { getStorage } from "firebase/storage";
 import "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getUserId, setUserId } from "./Login/userState";
@@ -22,21 +22,23 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let auth, app, db;
+let auth, app, db, storage;
 export const initFirebase = () => {
   app = initializeApp(firebaseConfig);
   db = getFirestore(app);
   auth = getAuth();
+  storage = getStorage(app); // Initialize the Storage instance
 };
+
+export { storage }; // Export the storage instance
+
 export const createUser = (email, password, adminCode, href) =>
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user;
-
       // Check if the admin code is 123
       const isAdmin = Number(adminCode) === 123;
-
       // Create a document in the 'users' collection with the user's ID
       setDoc(doc(db, "users", user.uid), {
         admin: isAdmin, // Add a field 'admin' which is by default false
